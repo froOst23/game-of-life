@@ -9,24 +9,30 @@ app_width = 600
 app_height = 600
 # Размер клетки
 cell_size = 23
-# Создаем список, в котором будут хранится клетки
+# Создаем список, в котором будет хранится номер клетки
 cell_matrix = []
+# Создаем список, в котором будет хранится цвет клетки
+color_matrix = []
+# Создаем список, заполненный #000000
+end_game = []
 # Для дополнительных вычислений будем определять стороны поля
 cube_width = 0
 cube_height = 0
 # Определяем цвет клеток
 die_cell = '#000000'
-new_cell = '#ADFF2F'
-old_cell = '#2E8B57'
+new_cell = '#00ff00'
 
 
+# Рисуем начальные клетки в случайном порядке
 def draw_init_cell():
-    # Рисуем клетки в случайном порядке
-    for i in range(len(cell_matrix) // 4):
+    for i in range(len(cell_matrix) // 7):
         square = randint(cell_matrix[0], cell_matrix[-2])
         canvas.itemconfig(square, fill=new_cell, tag=('live', '1'))
+        index_color = square - 1
+        color_matrix[index_color] = new_cell
 
 
+# Проверка соседних клеток и определение судьбы рассматриваемой клетки
 def check_neighbors():
     # Переменная для определения живой клетки
     live_tag = ('live', '1')
@@ -88,25 +94,56 @@ def check_neighbors():
                         count_neighbors += 1
                     # Определяем судьбу текущей клетки
                     square = (i - 1) * cube_height + j
+                    index_color = square - 1
                     if canvas.gettags(square) != live_tag:
                         if count_neighbors == 3:
                             canvas.itemconfig(square, fill=new_cell, tag=('live', '1'))
+                            color_matrix[index_color] = new_cell
                     else:
                         if count_neighbors == 3 or count_neighbors == 2:
-                            canvas.itemconfig(square, fill=old_cell, tag=('live', '1'))
-                        if count_neighbors > 3 or count_neighbors < 2:
+                            canvas.itemconfig(square, fill=hex_color(color_matrix[index_color]), tag=('live', '1'))
+                            color_matrix[index_color] = hex_color(color_matrix[index_color])
+                        if count_neighbors > 3 or count_neighbors < 2 \
+                                or hex_color(color_matrix[index_color]) == '#000000':
                             canvas.itemconfig(square, fill=die_cell, tag=('die', '0'))
+                            color_matrix[index_color] = die_cell
 
 
+# Начало игры
 def game():
     # Текущий жизненный цикл
     life_cycle = 0
-    while TRUE:
+    check_neighbors()
+    while not check_end_of_game():
         life_cycle += 1
         check_neighbors()
         root.update()
         time.sleep(0.08)
         root.title('Life cycle = ' + str(life_cycle))
+    else:
+        print('Game Over!')
+
+
+# Функция старения клетки
+def hex_color(color):
+    color = int(color[1:7:1], 16)
+    if color >= 20000:
+        color = color - 2560
+        color = hex(color)
+        color = str(color[2:8:1])
+        color = '#00' + color
+        return color
+    else:
+        color = '#000000'
+        return color
+
+
+# Проверяем закончилась ли игра
+def check_end_of_game():
+    if color_matrix == end_game:
+        return True
+    else:
+        return False
 
 
 root = Tk()
@@ -140,7 +177,8 @@ for i in range(int(field_height)):
                                          cell_size + cell_size * i, )
         canvas.itemconfig(square, fill=die_cell, tag=('die', '0'))
         cell_matrix.append(square)
-print(cell_matrix)
+        color_matrix.append(die_cell)
+        end_game.append(die_cell)
 # Рисуем первоночальные клетки
 draw_init_cell()
 # Запускаем наш клеточный автомат
