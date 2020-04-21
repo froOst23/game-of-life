@@ -97,6 +97,7 @@ def check_neighbors():
                     # Определяем судьбу текущей клетки
                     square = (i - 1) * cube_height + j
                     index_color = square - 1
+                    # Сохраняем информацию о соседних клетках в список
                     neighbors[index_color] = count_neighbors
 
 
