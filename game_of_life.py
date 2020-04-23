@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 from tkinter import *
 from random import *
-import time
+# import time
 
 # Параметр определяющий живую клетку
 live_tag = ('live', '1')
@@ -8,7 +10,7 @@ live_tag = ('live', '1')
 app_width = 600
 app_height = 600
 # Размер клетки
-cell_size = 23
+cell_size = 10
 # Создаем список, в котором будет хранится номер клетки
 cell_matrix = []
 # Создаем список, в котором будет хранится цвет клетки
@@ -36,8 +38,6 @@ def draw_init_cell():
 
 # Проверка соседних клеток и определение судьбы рассматриваемой клетки
 def check_neighbors():
-    # Переменная для определения живой клетки
-    live_tag = ('live', '1')
     square = 1
     # i начинает отсчет с 0
     for i in range(cube_height+1):
@@ -131,7 +131,7 @@ def game():
         check_neighbors()
         fate()
         root.update()
-        time.sleep(0.03)
+        # time.sleep(0.03)
         root.title('Life cycle = ' + str(life_cycle))
     else:
         print('Game Over!')
@@ -163,10 +163,8 @@ root = Tk()
 # Выводим на центр экрана
 sys_width = root.winfo_screenwidth()
 sys_height = root.winfo_screenheight()
-sys_width = sys_width // 2
-sys_height = sys_height // 2
-sys_width = sys_width - (app_width / 2)
-sys_height = sys_height - (app_height / 2)
+sys_width = (sys_width // 2) - (app_width / 2)
+sys_height = (sys_height // 2) - (app_height / 2)
 root.resizable(False, False)
 # Задаем конфигурацию root.geometry формата WxH+W+H
 config_geometry = str(app_width) + 'x' + str(app_height) \
@@ -179,7 +177,6 @@ field_height = app_height / cell_size
 canvas = Canvas(root, width=app_width, height=app_height)
 canvas.pack(fill=BOTH)
 # Заполняем поле клетками
-state_cell = dict()
 for i in range(int(field_height)):
     cube_height += 1
     for j in range(int(field_width)):
