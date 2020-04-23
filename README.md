@@ -3,6 +3,7 @@
 ![](https://img.shields.io/github/languages/top/froOst23/game_of_life.svg)
 ![](https://img.shields.io/github/last-commit/froOst23/game_of_life.svg)
 ![](https://img.shields.io/github/repo-size/froOst23/game_of_life.svg)
+![](https://img.shields.io/github/release-date/froOst23/game_of_life.svg)
 
 ### Description
 
