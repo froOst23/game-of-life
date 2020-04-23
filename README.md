@@ -4,13 +4,13 @@
 ![](https://img.shields.io/github/last-commit/froOst23/game_of_life.svg)
 ![](https://img.shields.io/github/repo-size/froOst23/game_of_life.svg)
 
-## Description
+### Description
 
 The Game of Life, also known simply as Life, is a cellular automaton devised by the [British mathematician John Horton Conway](https://en.wikipedia.org/wiki/John_Horton_Conway) in 1970.
 
 The graphical interface is implemented using the tkinter module.
 
-## Classic game rules
+### Classic game rules
 
 In this version there is a slight deviation from the classic version of the game. Implemented the method of cell aging, which is described in this part:
 
