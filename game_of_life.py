@@ -10,7 +10,7 @@ live_tag = ('live', '1')
 app_width = 600
 app_height = 600
 # Размер клетки
-cell_size = 10
+cell_size = 18
 # Создаем список, в котором будет хранится номер клетки
 cell_matrix = []
 # Создаем список, в котором будет хранится цвет клетки
@@ -193,5 +193,6 @@ for i in range(int(field_height)):
 # Рисуем первоночальные клетки
 draw_init_cell()
 # Запускаем наш клеточный автомат
-game()
-root.mainloop()
+if __name__ == '__main__':
+    game()
+    root.mainloop()
